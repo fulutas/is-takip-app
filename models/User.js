@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const {isEmail} = require('validator') // Email format validasyonu
+const bcrypt = require('bcrypt') // parola şifreleme
 
 // User Collection Şeması
 const userSchema = new mongoose.Schema({
@@ -17,16 +18,19 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-// Schema veritabanına kayıt olduktan sonra kontroller
-userSchema.post('save', function(doc,next) {
-    console.log('kaydedildikten sonra çalşacak', doc)
-    next()
-})
+// Schema veritabanına kayıt olduktan sonra kontroller - doc veriyi döndürür.
+// userSchema.post('save', function(doc,next) {
+//     console.log('kaydedildikten sonra çalşacak', doc)
+//     next()
+// })
 
-// Schema veritabanına kaydedilmeden önce kontroller
-userSchema.pre('save', function(next) {
-    console.log('kaydedilmeden çalışacak', this)
+// Schema veritabanına kaydedilmeden önce parola şifrelenir. (this yakalanan veri)
+userSchema.pre('save', async function(next) {
+    
+    const salt = await bcrypt.genSalt()
+    this.parola = await bcrypt.hash(this.parola, salt)
     next()
+    
 })
 
 // DB'ye collection kaydedilmesi
