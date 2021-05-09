@@ -79,3 +79,10 @@ module.exports.login_post = async (req, res) => {
     // console.log(email, parola)
     // res.send('yeni kullanıcı girişi yaptı')
 }
+
+
+// çıkış yap cookie süresi 1 sn yapar
+module.exports.logout_get = (req, res) => {
+    res.cookie('jwt', 'çıkış yapıldı', { maxAge: 1 })
+    res.redirect('/')
+}
