@@ -17,6 +17,14 @@ const hataYakala = (err) => {
         })
     }
 
+    if (err.message === 'email-hatası') {
+        errors.email = 'email adresini yanlış girdiniz!'
+    }
+
+    if (err.message === 'parola-hatası') {
+        errors.parola = 'parolayı yanlış girdiniz!'
+    }
+
     return errors;
 }
 
@@ -57,6 +65,17 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
     const { email, parola } = req.body
-    console.log(email, parola)
-    res.send('yeni kullanıcı girişi yaptı')
+
+    try {
+        const user = await User.login(email, parola)
+        const token = createToken(user._id)
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge })
+        res.status(200).json({ user: user._id })
+    } catch (error) {
+        const errors = hataYakala(error)
+        res.status(400).json({ errors })
+    }
+
+    // console.log(email, parola)
+    // res.send('yeni kullanıcı girişi yaptı')
 }

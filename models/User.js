@@ -30,8 +30,26 @@ userSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt()
     this.parola = await bcrypt.hash(this.parola, salt)
     next()
-    
+
 })
+
+
+userSchema.statics.login = async function(email,parola) {
+     // user schemasında gelen email isteğini collection'da arama
+     const user = await this.findOne({email})
+
+     if(user){
+         // db'de kayıtlıysa şifreyi çöz
+         const auth = await bcrypt.compare(parola, user.parola)
+         if(auth){
+             return user
+         }
+         throw Error('parola-hatası')
+     }
+
+     // parola hatası değilse email'dir..
+     throw Error('email-hatası')
+}
 
 // DB'ye collection kaydedilmesi
 const User = mongoose.model('user', userSchema)
