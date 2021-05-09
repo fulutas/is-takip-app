@@ -1,23 +1,19 @@
 <%- include('partials/header') %>
 
-<ul class="works">
-    <li class="work"> 
-        <img src="/work-logo2.png" alt="">
-        <h4>Javascript</h4>
-        <p>Test ediliyor</p>
-    </li>
+    <ul class="works">
+        <% if(isler.length> 0){ %>
 
-    <li class="work"> 
-        <img src="/work-logo2.png" alt="">
-        <h4>Javascript</h4>
-        <p>Test ediliyor</p>
-    </li>
+            <% isler.forEach(is=> { %>
+                <li class="work">
+                    <img src="/work-logo2.png" alt="work-logo">
+                    <h4>
+                        <%= is.baslik %>
+                    </h4>
+                </li>
+                <% }) %>
+                    <% } else { %>
+                        <div>Henüz iş girilmedi</div>
+                        <% } %>
+    </ul>
 
-    <li class="work"> 
-        <img src="/work-logo2.png" alt="">
-        <h4>Javascript</h4>
-        <p>Test ediliyor</p>
-    </li>
-</ul>
-
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>

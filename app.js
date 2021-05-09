@@ -34,9 +34,9 @@ app.get('/', authKontrol, (req, res) => {
 })
 
 // sayfa çalıştığında authKontrol method devreye girer
-app.get('/works', authKontrol, (req, res) => {
-    res.render('works')
-})
+// app.get('/works', authKontrol, (req, res) => {
+//     res.render('works')
+// })
 
 app.use(authRoutes)
 app.use(workRoutes)

@@ -25,3 +25,10 @@ module.exports.work_add_post = async (req, res) => {
 
     }
 }
+
+// Kullanıcı Id'ye göre eklenen işleri getirir
+module.exports.works_get = (req, res) => {
+    Work.find({ 'kullaniciId': res.locals.user._id }).then((result) => {
+        res.render('works', { isler: result }) // works.ejs isler json gönderilir.
+    })
+}
