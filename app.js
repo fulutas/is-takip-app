@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
 const cookieParser = require('cookie-parser') // cookie oluşturma
+const { authKontrol } = require('./middleware/authMiddleware')
 
 const app = express();
 
@@ -23,11 +24,13 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 });
 
 
-app.get('/', (req,res)=> {
+// sayfa çalıştığında authKontrol method devreye girer
+app.get('/', authKontrol, (req,res)=> {
     res.render('home')
 })
 
-app.get('/works', (req,res) => {
+// sayfa çalıştığında authKontrol method devreye girer
+app.get('/works', authKontrol, (req,res) => {
     res.render('works')
 })
 
