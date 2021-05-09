@@ -23,24 +23,20 @@
 
         <script>
             const form = document.querySelector('form')
-            const emailError = document.querySelector('.email.error')
-            const passwordError = document.querySelector('.password.error')
 
             form.addEventListener('submit', async (e) => {
 
-                emailError.textContent = ''
-                passwordError.textContent = ''
-
                 e.preventDefault()
 
-                // input => name
-                const email = form.email.value
-                const parola = form.parola.value
+                const baslik = form.baslik.value
+                const aciklama = form.aciklama.value
+                const baslama = form.baslama.value
+                const bitis = form.bitis.value
 
                 try {
-                    let res = await fetch('/login', {
+                    let res = await fetch('/work-add', {
                         method: 'POST',
-                        body: JSON.stringify({ email, parola }),
+                        body: JSON.stringify({ baslik, aciklama, baslama, bitis }),
                         headers: { 'Content-Type': 'application/json' }
                     })
 
@@ -48,15 +44,9 @@
                     const data = await res.json()
                     console.log(data)
 
-                    // response hata dönerse
-                    if (data.errors) {
-                        emailError.textContent = data.errors.email
-                        passwordError.textContent = data.errors.parola
-                    }
-
-                    // giriş başarılıysa yönlendirme
-                    if (data.user) {
-                        location.assign('/')
+                    // iş ekleme başarılıysa yönlendirme
+                    if (data.work) {
+                        location.assign('/works')
                     }
 
                 } catch (error) {
