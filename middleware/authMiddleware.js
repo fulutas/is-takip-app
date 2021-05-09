@@ -29,6 +29,7 @@ const kullaniciKontrol = (req, res, next) => {
     if (token) {
         jwtoken.verify(token, 'furkan-ults', async (err, result) => {
             if(err){
+                // lokal değişken
                 res.locals.user = null;
                 next()
             } else{

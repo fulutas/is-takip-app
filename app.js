@@ -23,6 +23,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
         console.log(err)
     });
 
+    
 // Tüm sayfalarda methodu çalıştırır
 app.get('*', kullaniciKontrol)
 

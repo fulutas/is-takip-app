@@ -12,9 +12,14 @@
 <body>
     <nav>
         <a href="/">İş Takip Uygulaması</a>
+        <!-- user local değişken (authmiddleware.js )-->
         <ul>
+         <% if(user ){ %> 
+            <li>Hoşgeldin, <%= user.email.split('@')[0] %> </li>  
+            <li><a href="/logout">Çıkış Yap</a></li>
+        <%  } else { %>     
             <li><a href="/login">Giriş Yap</a></li>
             <li><a href="/signup">Kayıt Ol</a></li>
-            <li><a href="/logout">Çıkış Yap</a></li>
+        <% } %>
         </ul>
     </nav>
