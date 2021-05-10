@@ -5,6 +5,7 @@ const workRoutes = require('./routes/workRoutes')
 const cookieParser = require('cookie-parser') // cookie oluşturma
 const { authKontrol, kullaniciKontrol } = require('./middleware/authMiddleware')
 
+const PORT = process.env.PORT || 5000
 const app = express();
 
 app.use(express.static('public'))
@@ -17,7 +18,7 @@ const dbURI = 'mongodb+srv://furkan:lqunte31@cluster1.2g63p.mongodb.net/isTakipD
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then((result) => {
-        app.listen(3000, () => {
+        app.listen(PORT, () => {
             console.log("DB bağlantısı başarılı, server dinleniyor.")
         })
     }).catch((err) => {
