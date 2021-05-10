@@ -14,7 +14,7 @@ app.use(cookieParser())
 
 app.set('view engine', 'ejs')
 
-const dbURI = 'mongodb+srv://furkan:lqunte31@cluster1.2g63p.mongodb.net/isTakipDB?retryWrites=true&w=majority'
+const dbURI = 'mongodb+srv://furkan:<password>@cluster1.2g63p.mongodb.net/isTakipDB?retryWrites=true&w=majority'
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then((result) => {
